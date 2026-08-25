@@ -15,18 +15,21 @@ main: proc(argc: i32, argv: **char)-> i32 = {
     num: i32 = 0;
     printfmt("num = {}\n", num);
 
-    # array: *[]i32 = {};
+    array: [4]i32 = {};
 
     arena: memops_arena = {};
     memops_arena_initialize(&arena);
+    are: i32 = 0;
+    are += 1;
+    printfmt("are = {}\n", are);
 
     p: payload = {};
     p.x = 42.0;
     name: *const char = payload<>.name;
     printfmt("payload.x {}\n", p.x);
     printfmt("name {}\n", name);
-    for (i: i32 = 0; i < payload<>.field_count; i += 1) {
-        printfmt("field[{}] = {}\n", i, payload<>.fields[i].name);
+    for (i: i32 = 0; i < payload<>.count; i += 1) {
+        printfmt("field[{}].name = '{}'\n", i, payload<>.variant.fields[i].name);
     }
 
     len: i32 = 16;
@@ -46,7 +49,7 @@ main: proc(argc: i32, argv: **char)-> i32 = {
     }
     printfmt("\n");
 
-    numberchain: *List<payload>;
+    numberchain: *List<payload> = {};
     numberchain = List<payload>create(&arena);
     List<payload>append(arena.&, numberchain, { .x = 3.16 });
     List<payload>append(arena.&, numberchain, { .x = 8.6 });
