@@ -9,6 +9,10 @@ payload: struct = {
     y: *u8;
 }
 
+status: enum = {
+    ok, err
+}
+
 main: proc(argc: i32, argv: **char)-> i32 = {
     printf("Hello, World!\n");
 
@@ -16,6 +20,11 @@ main: proc(argc: i32, argv: **char)-> i32 = {
     printfmt("num = {}\n", num);
 
     array: [4]i32 = {};
+    s: status = status.ok;
+
+    if (true) {
+        s = status.err;
+    }
 
     arena: memops_arena = {};
     memops_arena_initialize(&arena);
