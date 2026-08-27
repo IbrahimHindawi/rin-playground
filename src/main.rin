@@ -1,8 +1,8 @@
-import "std/memops.i"
-import "std/Array.i"
-import "std/Node.i"
-import "std/List.i"
-import "std/Print.i"
+import "std/memops.rin"
+import "std/Array.rin"
+import "std/Node.rin"
+import "std/List.rin"
+import "std/Print.rin"
 
 payload: struct = {
     x: f32;

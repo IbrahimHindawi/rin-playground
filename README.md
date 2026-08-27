@@ -1,6 +1,6 @@
-# i-playground
+# rin-playground
 
-Small I language playground project.
+Small rin language playground project.
 
 ## Dependencies
 
@@ -8,8 +8,8 @@ Small I language playground project.
 - CMake
 - Ninja
 - LLVM/Clang with `clang-cl`
-- `I.exe` on `PATH`, usually from `C:\devel\i-windows-x64`
-- `std` beside `I.exe`, copied by the I compiler build to `C:\devel\i-windows-x64\std`
+- `rin.exe` on `PATH`, usually from `C:\devel\rin-windows-x64`
+- `std` beside `rin.exe`, copied by the rin compiler build to `C:\devel\rin-windows-x64\std`
 
 ## Build And Run
 
@@ -20,18 +20,18 @@ python bunyan.py run debug
 Bunyan runs:
 
 ```text
-I.exe compile src/main.i -> build/i_gen/main.c + build/i_gen/main.h
+rin.exe compile src/main.rin -> build/rin_gen/main.c + build/rin_gen/main.h
 cmake config/build
-build/i-playground.exe
+build/rin-playground.exe
 ```
 
 The project imports the standard library through:
 
 ```i
-import "std/Print.i"
+import "std/Print.rin"
 ```
 
-`I.exe` resolves that through the `std` folder beside the compiler executable. Use Bunyan `i_import_dirs` only for project-local libraries.
+`rin.exe` resolves that through the `std` folder beside the compiler executable. Use Bunyan `i_import_dirs` only for project-local libraries.
 
 Other configs:
 
