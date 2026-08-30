@@ -1,6 +1,7 @@
 import "std/memops.rin"
 import "std/Array.rin"
 import "std/Node.rin"
+import "std/slice.rin"
 import "std/List.rin"
 import "std/Print.rin"
 import "std/reflect.rin"
@@ -12,6 +13,10 @@ payload: struct = {
 
 status: enum = {
     ok, err
+}
+
+array_slice: proc<T>(source: *Array<T>) -> slice<T> = {
+    return { .data = source[0].data, .length = source[0].length };
 }
 
 main: proc(argc: i32, argv: **char)-> i32 = {
@@ -31,9 +36,6 @@ main: proc(argc: i32, argv: **char)-> i32 = {
 
     arena: memops_arena = {};
     memops_arena_initialize(&arena);
-    are: i32 = 0;
-    are += 1;
-    printfmt("are = {}\n", are);
 
     p: payload = {};
     p.x = 42.0;
@@ -47,8 +49,10 @@ main: proc(argc: i32, argv: **char)-> i32 = {
     len: i32 = 16;
     temp: memops_arena_temp = memops_arena_temp_begin(&arena);
     payloads: Array<payload> = Array<payload>reserve(temp.arena, 128);
-    for (i: i32 = 0; i < 128; i += 1) {
-        payloads.data[i] = { .x = i };
+    printfmt("payloads empty? {}\n", Array<payload>is_empty(payloads.&));
+    writer: slice<payload> = slice<payload>from_array(payloads);
+    for (i: i32 = 0; i < writer.length; i += 1) {
+        writer.data[i] = { .x = i };
     }
     memops_arena_temp_end(temp);
 
