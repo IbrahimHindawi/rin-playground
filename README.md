@@ -28,7 +28,7 @@ build/rin-playground.exe
 The project imports the standard library through:
 
 ```i
-import "std/Print.rin"
+import "std/print.rin"
 ```
 
 `rin.exe` resolves that through the `std` folder beside the compiler executable. Use Bunyan `i_import_dirs` only for project-local libraries.
