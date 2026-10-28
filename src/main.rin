@@ -16,10 +16,10 @@ status: enum = {
 }
 
 array_slice: proc<T>(source: *array<T>) -> slice<T> = {
-    return { .data = source[0].data, .length = source[0].length };
+    return { .data = source*.data, .length = source*.length };
 }
 
-main: proc(argc: i32, argv: *[*]char)-> i32 = {
+main: proc(argc: i32, argv: *^char)-> i32 = {
     printf("Hello, World!\n");
 
     num: i32 = 0;
@@ -39,7 +39,7 @@ main: proc(argc: i32, argv: *[*]char)-> i32 = {
 
     p: payload = {};
     p.x = 42.0;
-    name: [*]const char = payload<>.name;
+    name: ^const char = payload<>.name;
     printfmt("payload.x {}\n", p.x);
     printfmt("name {}\n", name);
     for (i: i32 = 0; i < payload<>.count; i += 1) {
@@ -71,10 +71,10 @@ main: proc(argc: i32, argv: *[*]char)-> i32 = {
     list<payload>append(arena&, numberchain, { .x = 8.6 });
     list<payload>append(arena&, numberchain, {});
 
-    node: *node<payload> = numberchain[0].head;
-    for (i: u64 = 0; i < numberchain[0].length; i += 1) {
-        printf("%f\n", node[0].data.x);
-        node = node[0].next;
+    node: *node<payload> = numberchain*.head;
+    for (i: u64 = 0; i < numberchain*.length; i += 1) {
+        printf("%f\n", node*.data.x);
+        node = node*.next;
     }
 
     return 0;
